@@ -2,8 +2,8 @@ library(quantmod)
 library(tidyr)
 
 #This is the csv exported from gretl, I used it to check that the data was in fact the same
-
 #Testing <- read.csv("./DATA/gretl_data.csv")
+
 
 
 #List of symbols to fetch, my added variables are savingssl and nonrevns 
