@@ -1,12 +1,6 @@
 library(quantmod)
 library(tidyr)
 
-#This is the csv exported from gretl, I used it to check that the data was in fact the same
-#Testing <- read.csv("./DATA/gretl_data.csv")
-
-
-
-
 #List of symbols to fetch, my added variables are savingssl and nonrevns 
 FRED_symbols <- c("MORTG", "FEDFUNDS", "CPIFABNS", "GDP", "TB3MS", "GS20", "SPCS10RSA", "SAVINGSL", "NONREVNS")
 
@@ -29,10 +23,26 @@ FRED_combined <-
       FRED_data_trimmed[[4]],FRED_data_trimmed[[5]],FRED_data_trimmed[[6]],
       FRED_data_trimmed[[7]],FRED_data_trimmed[[8]],FRED_data_trimmed[[9]]))
 
+#Cleans out all the uncombined datasets
+rm(list = names(Filter(is.xts,mget(ls(all=T)))))
+
 #Fills NA's in GDP with prior values
 FRED_final <- fill(FRED_combined,GDP)
 
-
 write.csv(FRED_final, file = "DATA/fred_data.csv")
+
+#Final clean up
+rm(list=ls())
+
+
+#This is the csv exported from gretl, I used it to check that the data was in fact the same
+
+#Testing <- read.csv("./DATA/gretl_data.csv")
+
+#The data has a couple small differences.
+#1. A bunch of value differences, nothing huge but still noticable.
+#2. Some of the variables from gretl are rounded a digit further
+
+
 
 
